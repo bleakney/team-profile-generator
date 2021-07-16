@@ -9,6 +9,24 @@ test('creates engineer object', () => {
     expect(engineer.github).toBe('lilricky94');
 });
 
+test('gets name of engineer', () => {
+    const engineer = new Engineer('Lil Ricky', 49, "lilricky@biglilrickys.com", 'lilricky94');
+
+    expect(engineer.getName()).toEqual(expect.any(String));
+});
+
+test("gets engineer's id", () => {
+    const engineer = new Engineer('Lil Ricky', 49, "lilricky@biglilrickys.com", 'lilricky94');
+
+    expect(engineer.getId()).toEqual(expect.any(Number));
+});
+
+test("gets engineer's email address", () => {
+    const engineer = new Engineer('Lil Ricky', 49, "lilricky@biglilrickys.com", 'lilricky94');
+
+    expect(engineer.getEmail()).toEqual(expect.stringContaining('@'));
+});
+
 test("returns engineer's github", () => {
     const engineer = new Engineer('Lil Ricky', 49, "lilricky@biglilrickys.com", 'lilricky94');
 
