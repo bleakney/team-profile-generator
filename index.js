@@ -4,7 +4,6 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 const generatePage = require('./src/page-template');
-let teamMembers = [];
 
 // const mockData = {
 //     Manager {
@@ -37,8 +36,8 @@ let teamMembers = [];
 //     });
 // };
 
-const managerQuestions = [
-    {
+const promptManager = () => {
+    return inquirer.prompt([{
       type: 'input',
       name: 'managerName',
       message: "Please enter the team manager's name. (Required)",
@@ -92,9 +91,30 @@ const managerQuestions = [
         message: "Would you like to add another team member or have you finished building your team?",
         choices: ['Intern', 'Engineer', 'Finished Building']
     }
-  ]; 
+  ])
+  .then((answers) => {
+    this.manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.officeNumber);
+    let teamManagerObj = {
+        name: this.manager.getName(),
+        id: this.manager.getId(),
+        email: this.manager.getEmail(),
+        
+    }
+    teamMembers.push();
+    if (answers.nextMember === 'Intern'){
+        promptIntern();
+    } else if (answers.nextMember === 'Engineer') {
+        promptEngineer();
+    }
+    else {
+         console.log(teamMembers);
+    }
+})
+};
 
-  const engineerQuestions = [
+
+  const promptEngineer = async () => {
+      return inquirer.prompt([
         {
             type: 'input',
             name: 'engineerName',
@@ -142,26 +162,30 @@ const managerQuestions = [
                     console.log('Please enter a valid github username!');
                 };
             }
+        },
+        {
+            type: 'list',
+            name: 'nextMember',
+            message: "Would you like to add another team member or have you finished building your team?",
+            choices: ['Intern', 'Engineer', 'Finished Building']
         }
-    ]
+      ])
+      .then((answers) => {
+        this.engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.github);
+        teamMembers.push(this.engineer);
+        if (answers.nextMember === 'Intern'){
+            promptIntern();
+        } else if (answers.nextMember === 'Engineer') {
+            promptEngineer();
+        }
+        else {
+            console.log(teamMembers);
+        }
+    });
+};
 
-    const promptNewEmployee = function() {
-        return inquirer.prompt({
-        type: 'list',
-        name: 'nextMember',
-        message: "Would you like to add another team member or have you finished building your team?",
-        choices: ['Intern', 'Engineer', 'Finished Building']
-        })
-        .then((nextMember => {
-            if (nextMember === 'Intern') {
-                inquirer.prompt(internQuestions);
-            } else if (nextMember === 'Engineer') {
-                inquirer.prompt(engineerQuestions);
-            };
-        }))
-    };
-
-const internQuestions = [
+const promptIntern = () => {
+    inquirer.prompt([
         {
             type: 'input',
             name: 'internName',
@@ -209,24 +233,46 @@ const internQuestions = [
                     console.log('Please enter a valid school!');
                 };
             }
+        },
+        {
+            type: 'list',
+            name: 'nextMember',
+            message: "Would you like to add another team member or have you finished building your team?",
+            choices: ['Intern', 'Engineer', 'Finished Building']
         }
-    ];
-
-
-    inquirer.prompt(managerQuestions)
-    .then(promptNewEmployee)
+    ])
     .then((answers) => {
-        console.log(answers);
-    });
-    //     this.intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.school);
-    //     // teamMembers.push(this.intern);
-    //     if (answers.nextMember === 'Intern'){
-    //         promptIntern();
-    //     } else if (answers.nextMember === 'Engineer') {
-    //         promptEngineer();
-    //     }
-    // })
+        this.intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.school);
+        teamMembers.push(this.intern);
+        if (answers.nextMember === 'Intern'){
+            promptIntern();
+        } else if (answers.nextMember === 'Engineer') {
+            promptEngineer();
+        }
+    })
+};
 
+[
+    Manager {
+      name: 'magner',
+      id: '897',
+      email: '@@gai',
+      officeNumber: '9'
+    },
+    Intern {
+      name: 'unrewebn',
+      id: '987',
+      email: 'enu@@',
+      school: 'hsef'
+    },
+    Engineer {
+      name: 'sdhf',
+      id: '23',
+      email: '@@@mgaui',
+      github: 'usidfg'
+    }
+]
 
+promptManager();
 
 
