@@ -5,36 +5,48 @@ const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 const generatePage = require('./src/page-template');
 
-// const mockData = {
-//     Manager {
-//       name: 'mike',
-//       id: '34',
-//       email: 'manager@gmail.com',
-//       officeNumber: '8'
-//     },
-//     Intern {
-//       name: 'jolene',
-//       id: '37',
-//       email: 'internscum@gmail.com',
-//       school: 'intern school'
-//     },
-//     Engineer {
-//       name: 'new girl rebekah',
-//       id: '98',
-//       email: 'engineer@gmail.com',
-//       github: 'engineer69'
-//     }
-//   }
+const mockData = [
+    {
+      name: 'anjg',
+      id: '786',
+      email: '@@',
+      officeNumber: '38',
+      role: 'Manager'
+    },
+    {
+      name: 'inetern',
+      id: '89732',
+      email: 'email@',
+      officeNumber: 'shcioel',
+      role: 'Intern'
+    },
+    {
+      name: 'eingue',
+      id: '78e6r32',
+      email: 'shdlkf@',
+      officeNumber: 'userne',
+      role: 'Engineer'
+    },
+    {
+      name: 'inertrf',
+      id: '23428',
+      email: 'e@@',
+      officeNumber: 'shfcie',
+      role: 'Intern'
+    }
+  ];
 
-// async function generateHTML(teamData) {
-//     console.log(teamData);
-//     const pageHTML = generatePage(teamData);
+async function generateHTML(teamData) {
+    console.log(teamData);
+    const pageHTML = generatePage(teamData);
 
-//     fs.writeFile('./dist/index.html', pageHTML, err => {
-//         if (err) throw new Error(err);
-//         console.log('Page created! Check out index.html in the /dist directory to see it!');
-//     });
-// };
+    fs.writeFile('./dist/index.html', pageHTML, err => {
+        if (err) throw new Error(err);
+        console.log('Page created! Check out index.html in the /dist directory to see it!');
+    });
+};
+
+generateHTML(mockData);
 
 const promptManager = () => {
     return inquirer.prompt([{
@@ -98,16 +110,17 @@ const promptManager = () => {
         name: this.manager.getName(),
         id: this.manager.getId(),
         email: this.manager.getEmail(),
-        
-    }
-    teamMembers.push();
+        officeNumber: this.manager.getOfficeNumber(),
+        role: this.manager.getRole()
+    };
+    teamMembers.push(teamManagerObj);
     if (answers.nextMember === 'Intern'){
         promptIntern();
     } else if (answers.nextMember === 'Engineer') {
         promptEngineer();
     }
     else {
-         console.log(teamMembers);
+         generateHTML(teamMembers);
     }
 })
 };
@@ -172,14 +185,22 @@ const promptManager = () => {
       ])
       .then((answers) => {
         this.engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.github);
-        teamMembers.push(this.engineer);
+        let engineerObj = {
+            name: this.engineer.getName(),
+            id: this.engineer.getId(),
+            email: this.engineer.getEmail(),
+            officeNumber: this.engineer.getGithub(),
+            role: this.engineer.getRole()
+        };
+        teamMembers.push(engineerObj);
+        console.log(teamMembers);
         if (answers.nextMember === 'Intern'){
             promptIntern();
         } else if (answers.nextMember === 'Engineer') {
             promptEngineer();
         }
         else {
-            console.log(teamMembers);
+            generateHTML(teamMembers);
         }
     });
 };
@@ -243,36 +264,24 @@ const promptIntern = () => {
     ])
     .then((answers) => {
         this.intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.school);
-        teamMembers.push(this.intern);
+        let internObj = {
+            name: this.intern.getName(),
+            id: this.intern.getId(),
+            email: this.intern.getEmail(),
+            officeNumber: this.intern.getSchool(),
+            role: this.intern.getRole()
+        };
+        teamMembers.push(internObj);
         if (answers.nextMember === 'Intern'){
             promptIntern();
         } else if (answers.nextMember === 'Engineer') {
             promptEngineer();
+        } else {
+            generateHTML(teamMembers);
         }
     })
 };
 
-[
-    Manager {
-      name: 'magner',
-      id: '897',
-      email: '@@gai',
-      officeNumber: '9'
-    },
-    Intern {
-      name: 'unrewebn',
-      id: '987',
-      email: 'enu@@',
-      school: 'hsef'
-    },
-    Engineer {
-      name: 'sdhf',
-      id: '23',
-      email: '@@@mgaui',
-      github: 'usidfg'
-    }
-]
-
-promptManager();
+// promptManager();
 
 
