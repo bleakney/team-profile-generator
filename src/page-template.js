@@ -1,7 +1,9 @@
 const generateProfile = function(teamDataObject) {
     if(!teamDataObject) {
+        // if there are more calls to the function than members on a team, return empty string
         return '';
     } else if (teamDataObject.role === 'Manager') {
+        // different versions depending on role to change text description for the "otherInfo" value.
         return `
               <!-- EMPLOYEE CARD -->
               <div class="col-3">
@@ -17,6 +19,7 @@ const generateProfile = function(teamDataObject) {
               </div>
             `
     } else if (teamDataObject.role === 'Engineer') {
+        // different versions depending on role to change text description for the "otherInfo" value.
         return `
               <!-- EMPLOYEE CARD -->
               <div class="col-3">
@@ -33,6 +36,7 @@ const generateProfile = function(teamDataObject) {
             `
     }
     else if (teamDataObject.role === 'Intern') {
+        // different versions depending on role to change text description for the "otherInfo" value.
         return `
               <!-- EMPLOYEE CARD -->
               <div class="col-3">

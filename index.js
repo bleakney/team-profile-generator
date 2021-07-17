@@ -1,3 +1,4 @@
+// const declarations for dependencies and class constructor files
 const fs = require("fs");
 const inquirer = require("inquirer");
 const Engineer = require("./lib/Engineer");
@@ -5,11 +6,12 @@ const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 const generatePage = require("./src/page-template");
 
+// array to store team member data
 const teamMembers = [];
 
 async function generateHTML(teamData) {
   console.log(teamData);
-
+  // async function to transfer data from teamMembers array to page-template.js to create html!
   fs.writeFile("./dist/index.html", generatePage(teamData), (err) => {
     if (err) throw new Error(err);
     console.log(
@@ -18,6 +20,7 @@ async function generateHTML(teamData) {
   });
 }
 
+// manager prompts
 const promptManager = () => {
   return inquirer
     .prompt([
@@ -102,6 +105,7 @@ const promptManager = () => {
     });
 };
 
+// engineer prompts
 const promptEngineer = async () => {
   return inquirer
     .prompt([
@@ -186,6 +190,7 @@ const promptEngineer = async () => {
     });
 };
 
+// intern prompts 
 const promptIntern = () => {
   inquirer
     .prompt([
@@ -270,4 +275,5 @@ const promptIntern = () => {
     });
 };
 
+// function call to execute all code (promptmanager() starts with manager prompts then directs user to prompts for engineers and interns as subject to user needs and inputs)
 promptManager();
