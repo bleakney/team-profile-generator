@@ -37,4 +37,4 @@ test("returns engineer's role", () => {
     const engineer = new Engineer('Lil Ricky');
 
     expect(engineer.getRole()).toBe('Engineer');
-})
+});
