@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: serif;
+    font-weight:900;
+    text-decoration: none;
+}
+
+header h1 {
+    margin: auto;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 900;
+    background-color:rgba(158, 19, 37, 0.918);
+    color: white;
+    padding: 1rem;
+}
+
+.row {
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.card-header {
+    text-align: center;
+    background-color: cornflowerblue;
+    color: white;
+}
+
+
+
+a:link, a:hover, a:visited, a:active {
+    text-decoration: none;
+    color: black;
+}

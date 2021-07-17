@@ -5,36 +5,7 @@ const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 const generatePage = require("./src/page-template");
 
-const mockData = [
-  {
-    name: "anjg",
-    id: "786",
-    email: "@@",
-    officeNumber: "38",
-    role: "Manager",
-  },
-  {
-    name: "inetern",
-    id: "89732",
-    email: "email@",
-    officeNumber: "shcioel",
-    role: "Intern",
-  },
-  {
-    name: "eingue",
-    id: "78e6r32",
-    email: "shdlkf@",
-    officeNumber: "userne",
-    role: "Engineer",
-  },
-  {
-    name: "inertrf",
-    id: "23428",
-    email: "e@@",
-    officeNumber: "shfcie",
-    role: "Intern",
-  },
-];
+const teamMembers = [];
 
 async function generateHTML(teamData) {
   console.log(teamData);
@@ -46,8 +17,6 @@ async function generateHTML(teamData) {
     );
   });
 }
-
-generateHTML(mockData);
 
 const promptManager = () => {
   return inquirer
@@ -119,7 +88,7 @@ const promptManager = () => {
         name: this.manager.getName(),
         id: this.manager.getId(),
         email: this.manager.getEmail(),
-        officeNumber: this.manager.getOfficeNumber(),
+        otherInfo: this.manager.getOfficeNumber(),
         role: this.manager.getRole(),
       };
       teamMembers.push(teamManagerObj);
@@ -203,11 +172,10 @@ const promptEngineer = async () => {
         name: this.engineer.getName(),
         id: this.engineer.getId(),
         email: this.engineer.getEmail(),
-        officeNumber: this.engineer.getGithub(),
+        otherInfo: this.engineer.getGithub(),
         role: this.engineer.getRole(),
       };
       teamMembers.push(engineerObj);
-      console.log(teamMembers);
       if (answers.nextMember === "Intern") {
         promptIntern();
       } else if (answers.nextMember === "Engineer") {
@@ -288,7 +256,7 @@ const promptIntern = () => {
         name: this.intern.getName(),
         id: this.intern.getId(),
         email: this.intern.getEmail(),
-        officeNumber: this.intern.getSchool(),
+        otherInfo: this.intern.getSchool(),
         role: this.intern.getRole(),
       };
       teamMembers.push(internObj);
@@ -302,4 +270,4 @@ const promptIntern = () => {
     });
 };
 
-// promptManager();
+promptManager();
